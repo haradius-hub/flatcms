@@ -1,0 +1,17 @@
+{
+  "id": "custom-analytics",
+  "name": "Vlastní analytika",
+  "version": "2.0.0",
+  "author": "FlatCMS Team",
+  "description": "Zaznamenává serverové rendery do lokálního JSON a přidává poznámku pod články.",
+  "priority": 100,
+  "timeout": 3000,
+  "hooks": [
+    "afterPageRender",
+    "siteFooterRender"
+  ],
+  "configFields": [
+    { "key": "trackingId", "label": "ID měření", "type": "text", "default": "FLAT-0001" },
+    { "key": "footerNote", "label": "Poznámka v patičce", "type": "textarea", "default": "Měřeno vlastní analytikou FlatCMS." }
+  ]
+}

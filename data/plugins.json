@@ -1,0 +1,16 @@
+{
+  "seo-tools": {
+    "enabled": true,
+    "config": {
+      "siteKeywords": "flat-file, cms, nextjs, markdown",
+      "twitterHandle": "@flatcms"
+    }
+  },
+  "custom-analytics": {
+    "enabled": false,
+    "config": {
+      "trackingId": "FLAT-0001",
+      "footerNote": "Měřeno vlastní analytikou FlatCMS."
+    }
+  }
+}

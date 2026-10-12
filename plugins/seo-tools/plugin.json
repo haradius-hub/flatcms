@@ -1,0 +1,18 @@
+{
+  "id": "seo-tools",
+  "name": "SEO nástroje",
+  "version": "2.0.0",
+  "author": "FlatCMS Team",
+  "description": "Doplňuje meta značky, generuje popisek z obsahu a přidává SEO panel do administrace.",
+  "priority": 100,
+  "timeout": 3000,
+  "hooks": [
+    "beforePageSave",
+    "siteHeadRender",
+    "adminHeaderRender"
+  ],
+  "configFields": [
+    { "key": "siteKeywords", "label": "Klíčová slova webu", "type": "text", "default": "flat-file, cms, nextjs" },
+    { "key": "twitterHandle", "label": "Twitter účet", "type": "text", "default": "@flatcms" }
+  ]
+}

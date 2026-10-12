@@ -1,0 +1,50 @@
+# ============================================================
+# FlatCMS – .gitignore
+# ============================================================
+# Co se NIKDY nesmí dostat do Gitu (a na GitHub)
+# ============================================================
+
+# --- Závislosti ---
+/node_modules
+
+# --- Next.js build ---
+/.next/
+/out/
+/build
+/dist
+
+# --- Prostředí (obsahuje klíče a hesla!) ---
+.env
+.env.local
+.env.*.local
+
+# --- Runtime data (uživatelská data) ---
+/data/*.json
+/data/backups/
+/data/sessions.json
+/data/activity.json
+/data/analytics.json
+/data/login-attempts.json
+
+# --- Uživatelské uploady ---
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# --- Systém ---
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# --- Editor ---
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# --- Turbopack / SWC cache ---
+.turbo/
+*.tsbuildinfo
+next-env.d.ts

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "admin",
+    "username": "admin",
+    "passwordHash": "6628622f0c23dd9ec01ebf6388f4cfa1:d7eb85c8e2acf12f7220c7fd2ab7078eb348121af057195f7595314356992054dc56354dfd585bb551b1ea32c2738f0ddfe536110deeddb70eeddd375af86d90",
+    "displayName": "Hlavní administrátor",
+    "email": "admin@example.cz",
+    "role": "administrator",
+    "createdAt": "2026-09-23T11:15:10.334Z",
+    "preferredEditor": "markdown"
+  },
+  {
+    "id": "editor",
+    "username": "editor",
+    "passwordHash": "a2179ab935f810f7d13b0b26e1cf863f:a7b32d0904dfebbadbd4056aa3bc081f6343dfc10ca22a69893b66c6406b58398a919f037ab383442a5dfad8b90e5352c14579eb54107d36809a2771f7016d1b",
+    "displayName": "Jana Editorová",
+    "email": "editor@example.cz",
+    "role": "editor",
+    "createdAt": "2026-09-23T11:15:10.334Z",
+    "preferredEditor": "wysiwyg"
+  },
+  {
+    "id": "autor",
+    "username": "autor",
+    "passwordHash": "406253356ab8201966063c4d31b56c3f:049e7ba35100b08acee41060029da9d2d80dbd7c3c3f7c5e6cffc58a99dadabd495795bc6b84da431586aa8c66a7a73596aa419805dc7d8ac0c539e9e71505bb",
+    "displayName": "Petr Autor",
+    "email": "autor@example.cz",
+    "role": "author",
+    "createdAt": "2026-09-23T11:15:10.334Z",
+    "preferredEditor": "block"
+  }
+]

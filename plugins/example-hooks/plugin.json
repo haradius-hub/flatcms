@@ -1,0 +1,22 @@
+{
+  "id": "example-hooks",
+  "name": "Příklad nových hooků",
+  "version": "1.0.0",
+  "author": "FlatCMS Team",
+  "description": "Demonstruje nové hooky z Etapy 2C: beforePageDelete, afterLogin, registerAdminMenu, registerSettings.",
+  "priority": 50,
+  "timeout": 3000,
+  "hooks": [
+    "beforePageSave",
+    "beforePageDelete",
+    "afterPageDelete",
+    "afterLogin",
+    "adminHeaderRender",
+    "registerAdminMenu",
+    "registerSettings"
+  ],
+  "configFields": [
+    { "key": "readingWpm", "label": "Rychlost čtení (slov/min)", "type": "text", "default": "200" },
+    { "key": "showBadge", "label": "Zobrazit badge v hlavičce", "type": "text", "default": "true" }
+  ]
+}

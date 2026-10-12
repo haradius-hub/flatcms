@@ -1,0 +1,11 @@
+{
+  "siteTitle": "FlatCMS",
+  "siteSlogan": "Moderní flat-file CMS bez databáze",
+  "siteDescription": "Publikační systém postavený na Next.js, který ukládá obsah do Markdown souborů s YAML frontmatter.",
+  "language": "cs",
+  "itemsPerPage": 6,
+  "defaultEditor": "markdown",
+  "footerText": "© FlatCMS – uvolněno pod licencí GPLv3.",
+  "homepagePath": "",
+  "theme": "light"
+}
