@@ -57,6 +57,29 @@ Repozitář obsahuje implementaci základního CMS a dokumentace popisuje mimo j
 | Produkční provoz | Není ověřen | Testovací instalace, zálohy, obnova, monitoring a nasazení |
 | SQLite / PostgreSQL | Plán / návrh | Odložit do doby, kdy bude potřeba a bude stabilní storage rozhraní |
 
+### První kontrola aktuálního kódu — 10. 11. 2026
+
+Při kontrole souborů v aktuální větvi byly potvrzeny následující problémy. Jde o statickou kontrolu zdrojového kódu a stromu repozitáře; automatický build ani runtime testy zatím nebyly spuštěny.
+
+| Závažnost | Nález | Důsledek / další krok |
+|---|---|---|
+| 🔴 Kritická | src/lib/auth.ts používá známý pevný fallback pro FLATCMS_SECRET | Bez nastaveného tajného klíče lze falšovat podpis session. Odstranit fallback a při chybějící/slabé konfiguraci odmítnout start. |
+| 🔴 Kritická | src/lib/users.ts stále vytváří tři výchozí účty se známými hesly | Čistá instalace může být přístupná s veřejně známými přihlašovacími údaji. Nahradit bezpečným jednorázovým bootstrapem. |
+| 🔴 Kritická | data/users.json je stále verzovaný soubor v repozitáři | Obsahuje záznamy účtů a password hashe; samotné přidání do .gitignore již zveřejněnou historii neodstraní. Vyřadit runtime data z Gitu a posoudit vyčištění historie. |
+| 🔴 Kritická | actions.ts importuje src/lib/rate-limit, ale tento soubor v aktuálním stromu není | Pravděpodobná chyba TypeScript/build. Ověřit a doplnit nebo opravit import. |
+| 🔴 Vysoká | src/app/api/media/upload/route.ts neobsahuje aplikační limit velikosti ani počtu souborů a načítá celý soubor do paměti | Riziko vyčerpání paměti a disku. Zavést limity ještě před načtením obsahu a ověřit i limity reverzní proxy. |
+| 🔴 Vysoká | src/lib/paths.ts neprovádí kontrolu symlinků; segmenty '..' pouze odstraňuje | Ochrana cest není v souladu s dokumentací. Prověřit všechny operace se soubory a odmítat nebezpečné cesty. |
+| 🔴 Vysoká | src/lib/store.ts používá společný .tmp soubor a nemá mutex | Paralelní zápisy mohou kolidovat; poškozený JSON se navíc tiše nahrazuje fallback hodnotou. |
+| 🟠 Vysoká | data/users.json, data/settings.json a data/plugins.json jsou v repozitáři, přestože .gitignore obsahuje pravidlo pro data/*.json | Pravidlo ignoruje jen nové/nezařazené soubory; již trackované soubory zůstávají verzované. |
+| 🟠 Vysoká | next.config.ts je prázdná konfigurace a ve stromu není middleware.ts | Bezpečnostní hlavičky/CSP deklarované v dokumentaci nejsou v aktuální podobě doloženy. Prověřit i konfiguraci reverzní proxy. |
+| 🟠 Vysoká | src/db/index.ts importuje drizzle-orm a pg, ale tyto balíčky nejsou v package.json | Pravděpodobná chyba typechecku, i když databázový kód není zatím používán. Rozhodnout, zda odstranit nedokončený kód, nebo správně doplnit závislosti. |
+| 🟡 Střední | package.json neobsahuje testovací skript a ve stromu není testovací adresář | Kritické chování zatím nemá doloženou automatickou regresní ochranu. |
+| 🟡 Střední | pluginy se dynamicky načítají do stejného Node procesu; timeout pouze přestane čekat | Plugin je plně důvěryhodný kód, nikoli sandbox. Tuto hranici je nutné jasně dokumentovat a ověřit oprávnění k zapnutí pluginu. |
+
+**Další bezpečnostní upozornění:** jeden historický dokument oprav obsahuje řetězec vypadající jako konkrétní heslo. Pokud je nebo někdy bylo používáno na skutečném účtu či jiné službě, považovat ho za kompromitované a změnit ho. Hesla ani tajné klíče se nesmějí ukládat do dokumentace nebo Gitu.
+
+**Závěr první kontroly:** bezpečnostní etapa nemůže být považována za hotovou. FlatCMS v aktuálním stavu nesmí být nasazen jako veřejně dostupná produkční administrace, dokud nebudou odstraněny zejména výchozí účty, fallback tajný klíč, chybějící rate limiter, nezabezpečené uploady a problémy se souborovým úložištěm.
+
 **Procento dokončení se zatím neuvádí.** Bez testovacího a akceptačního seznamu by šlo o zavádějící číslo.
 
 ---
