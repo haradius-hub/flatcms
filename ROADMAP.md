@@ -1,3 +1,11 @@
+> ⚠️ **ARCHIVNÍ ROADMAPA — NEŘÍDÍ SE PODLE NÍ DALŠÍ VÝVOJ.**
+>
+> Aktuální cíle, priority a stav projektu jsou nově vedeny výhradně v [STAV-PROJEKTU.md](STAV-PROJEKTU.md). Tento dokument zachovává původní plán z 12. 10. 2026. Jeho termíny, odhady a stavové značky nejsou aktuálním závazným plánem.
+>
+> Při rozporu má vždy přednost STAV-PROJEKTU.md.
+
+---
+
 # FlatCMS – Roadmap
 
 **Živý dokument.** Aktualizuje se průběžně podle toho, co je hotové a co se plánuje.
