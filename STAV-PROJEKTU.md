@@ -84,6 +84,28 @@ Při kontrole souborů v aktuální větvi byly potvrzeny následující problé
 
 ---
 
+### Doplnění auditu — autentizace, oprávnění a obsah
+
+Kontrola dalších souborů potvrdila i následující nálezy:
+
+| Závažnost | Nález | Důsledek / další krok |
+|---|---|---|
+| 🔴 Kritická | Přihlašovací formulář `src/app/admin/login/LoginForm.tsx` stále veřejně vypisuje demo účty a jejich známá hesla | Odstranit demo přihlašovací údaje z UI; současně odstranit automatické vytváření těchto účtů v backendu. |
+| 🔴 Kritická | `saveArticleAction` dovoluje autorovi odeslat stav článku `published` a při založení článku neověřuje, zda cílová cesta už nepatří jinému článku | Autor může publikovat bez schválení a může přepsat obsah existujícího článku volbou stejné cesty. Ověřit vlastnictví, kolize cest a publikační oprávnění na serveru. |
+| 🔴 Vysoká | `saveArticle` zapisuje přímo do cílového souboru a nemaže bezpečně původní soubor při práci se složkovým `index.md` | Hrozí přepsání obsahu a nekonzistentní přesun/mazání. Nutné transakčnější ukládání, kontrola kolizí a pokrytí testy. |
+| 🔴 Vysoká | `listArticlePaths`, `getContentTree` a `listFolders` rekurzivně procházejí adresáře bez odmítání symlinků | Symlink ve stromu obsahu může způsobit průchod mimo content a vystavit obsah či zatížit server. |
+| 🔴 Vysoká | `deleteArticleAction` a `deleteFolderAction` nemají jednotné explicitní chování při nepřihlášení; navíc se pracuje jen s cestou a neověřuje se vlastnictví obsahu u mazání složky | Sjednotit autorizaci a pravidla vlastnictví pro všechny serverové akce; odmítat neautorizované požadavky, ne pouze je tiše ignorovat. |
+| 🟠 Vysoká | `renameMedia` používá `fs.rename` bez kontroly kolize cíle; `listMedia` používá `stat`, které následuje symlinky | Ověřit symlinky a kolize pro všechny operace se soubory, ne pouze upload. |
+| 🟠 Vysoká | `sanitizeHtml` přidává a následně globálně odstraňuje DOMPurify hooky při každém volání | Sdílený stav hooků může při souběžném renderování ovlivnit sanitizaci jiného požadavku. Použít izolovanou instanci DOMPurify nebo bezstavovou konfiguraci a doplnit souběžné testy. |
+| 🟠 Vysoká | `src/db/index.ts` importuje `drizzle-orm/node-postgres` a `pg`, které nejsou v `package.json` | Ověřit TypeScript build. Buď odstranit nedokončený PostgreSQL kód z první verze, nebo deklarovat závislosti až při skutečné implementaci. |
+| 🟡 Střední | `data/settings.json` a `data/plugins.json` jsou také verzované runtime soubory | Z Gitu vyřadit veškerý runtime obsah `data/`; ponechat pouze bezpečné příklady/schema, pokud jsou potřeba. |
+
+**Upřesnění k rate limitingu:** implementace `src/lib/rate-limit.ts` v aktuálním stromu chybí, přestože ji `src/app/actions.ts` importuje. To je konkrétní blokující problém pro build, nikoli jen chybějící ochrana. Stejně tak v aktuálním stromu není `src/middleware.ts` ani kořenový `middleware.ts`, přestože je popisuje historický bezpečnostní dokument.
+
+**Upřesnění k datům v Gitu:** `.gitignore` již obsahuje pravidlo `/data/*.json`, ale soubory `data/users.json`, `data/settings.json` a `data/plugins.json` jsou již sledované Gitem. Samotné pravidlo je z indexu repozitáře neodstraní. `data/users.json` obsahuje scrypt hashe, nikoli čitelná hesla; vzhledem k tomu, že veřejný login formulář zároveň zveřejňuje demo hesla a backend je umí automaticky vytvořit, je nutné účty považovat za kompromitované a bezpečně je nahradit.
+
+**Rozsah ověření:** jde o statickou kontrolu vybraných souborů aktuální větve GitHubu. Nebyl spuštěn `npm install`, lint, typecheck, build ani runtime test. Audit proto zatím není kompletní.
+
 ## 4. Nové pořadí práce
 
 ### Etapa 0 — Sjednocení dokumentace a technický výchozí stav
