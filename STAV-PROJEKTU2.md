@@ -1,3 +1,11 @@
+> ⚠️ **ARCHIVNÍ DOKUMENT — NEŘÍDÍ SE PODLE NĚJ DALŠÍ VÝVOJ.**
+>
+> Aktuální cíle, priority a stav projektu jsou nově vedeny výhradně v [STAV-PROJEKTU.md](STAV-PROJEKTU.md). Tento dokument zachovává původní plán a historický kontext z 22. 10. 2026. Jeho procentuální odhad dokončení ani zaškrtnuté položky nejsou nezávisle ověřeným stavem aktuálního kódu.
+>
+> Při rozporu má vždy přednost STAV-PROJEKTU.md.
+
+---
+
 # FlatCMS — Stav projektu a plán
 
 > **Verze:** 1.2.0 · **Aktualizováno:** 2026-10-22
